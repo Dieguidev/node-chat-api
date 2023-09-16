@@ -2,7 +2,7 @@ const db = require('../../utils/database');
 
 const { DataTypes, Sequelize } = require('sequelize');
 
-const Messages = db.define('messages', {
+const Participants = db.define('participants', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -10,19 +10,15 @@ const Messages = db.define('messages', {
     allowNull: false,
     primaryKey: true,
   },
-  message: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  senderUserId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    field: 'sender_user_id',
-  },
   conversationId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'conversation_id',
+  },
+  participantUserId:{
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    field: 'participant_user_id',
   },
   createdAt: {
     allowNull: false,
@@ -30,6 +26,6 @@ const Messages = db.define('messages', {
     field: 'created_at',
     defaultValue: Sequelize.NOW,
   },
-});
+})
 
-module.exports = Messages;
+module.exports = Participants;

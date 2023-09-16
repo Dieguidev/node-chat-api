@@ -8,7 +8,10 @@ const Users = db.define(
   'users',
   {
     id: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      autoIncrementIdentity: true,
+      allowNull: false,
       primaryKey: true,
     },
     firstName: {
@@ -71,7 +74,7 @@ const Users = db.define(
   },
   {
     hooks: {
-      beforeCreate: (user, options) => {
+      beforeCreate: (user) => {
         const { password } = user;
         const hash = bcrypt.hashSync(password, 10);
         user.password = hash;

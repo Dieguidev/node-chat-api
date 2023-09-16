@@ -2,9 +2,12 @@ const db = require('../../utils/database');
 
 const { DataTypes, Sequelize } = require('sequelize');
 
-const Converstions = db.define('conversations', {
+const Conversations = db.define('conversations', {
   id: {
-    type: DataTypes.UUID,
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    autoIncrementIdentity: true,
+    allowNull: false,
     primaryKey: true,
   },
   title: {
@@ -21,7 +24,7 @@ const Converstions = db.define('conversations', {
     },
   },
   createdByUserId: {
-    type: DataTypes.UUID,
+    type: DataTypes.INTEGER,
     allowNull: false,
     field: 'created_by_user_id',
   },
@@ -38,4 +41,4 @@ const Converstions = db.define('conversations', {
   },
 });
 
-module.exports = Converstions;
+module.exports = Conversations;

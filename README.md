@@ -1,6 +1,6 @@
-# Nombre del proyecto
+# Node-Chat-API
 
-Descripcion del proyecto
+Chat API con NodeJS
 
 ## Tabla de Contenidos
 
@@ -11,22 +11,23 @@ Descripcion del proyecto
 
 ## Requisitos
 
-Enumera aquí los requisitos previos para ejecutar el proyecto:
+Requisitos previos para ejecutar el proyecto:
 
 - Node.js (v14 o superior)
+- MySQL
 
 ## Instalación
 
 1. Clona el repositorio desde GitHub:
 
   ```bash
-  git clone https://github.com/Dieguidev/node-mongoDB-ecommerce.git
+  git clone https://github.com/Dieguidev/node-chat-api.git
   ```
 
 2. Cambia al directorio del proyecto clonado utilizando el siguiente comando en la terminal:
 
   ```bash
-  cd <nombre la carpeta>
+  cd node-chat-api
   ```
 
 3. Instalar Dependencias:
@@ -39,10 +40,11 @@ Enumera aquí los requisitos previos para ejecutar el proyecto:
 Crea un archivo .env en el directorio raíz del proyecto y agrega las siguientes variables de entorno:
 
   ```bash
-  MONGO_URL=  
-  JWT_SECRET=
-  PORT=
-  DOMAIN=
+  DB_NAME=
+  DB_USER=
+  DB_HOST=
+  DB_PASSWORD= 
+  DB_PORT= 
   ```
   
 ## Ejecución

@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const db = require('./utils/database');
-
+const initModels = require('./db/model/init.models');
 // const authRoutes = require('./routes/auth.routes');
 // const transporter = require('./utils/mailer');
 
@@ -13,9 +13,12 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan('tiny'));
 
+initModels();
+
 db.authenticate()
   .then(() => console.log('Bd autenticada'))
   .catch(error => console.log(error));
+
 db.sync({ force: true })
   .then(() => console.log('bd sincronnizada'))
   .catch(error => console.log(error));

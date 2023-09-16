@@ -3,6 +3,8 @@ const cors = require('cors');
 const morgan = require('morgan');
 const db = require('./utils/database');
 const initModels = require('./db/model/init.models');
+const routerApi = require('./routes');
+const { logErrors, ormErrorHandler, boomErrorHandler, errorHandler } = require('./middlewares/error.handler');
 
 
 
@@ -27,6 +29,10 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to my server' })
 })
 
-// app.use('/api/v1/auth', authRoutes)
+routerApi(app);
+app.use(logErrors);
+app.use(ormErrorHandler)
+app.use(boomErrorHandler);
+app.use(errorHandler);
 
 module.exports = app;

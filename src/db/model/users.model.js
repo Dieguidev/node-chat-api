@@ -72,15 +72,15 @@ const Users = db.define(
       defaultValue: Sequelize.NOW
     }
   },
-  {
-    hooks: {
-      beforeCreate: (user) => {
-        const { password } = user;
-        const hash = bcrypt.hashSync(password, 10);
-        user.password = hash;
-      },
-    },
-  },
+  // {
+  //   hooks: {
+  //     beforeCreate: (user) => {
+  //       const { password } = user;
+  //       const hash = bcrypt.hashSync(password, 10);
+  //       user.password = hash;
+  //     },
+  //   },
+  // },
 );
 
 module.exports = Users;

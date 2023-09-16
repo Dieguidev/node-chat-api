@@ -13,10 +13,6 @@ const ConversationTypes = db.define('conversation_types', {
   type: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: 'single',
-    validate: {
-      isIn: [['single', 'group']],
-    },
   },
   createdAt: {
     allowNull: false,

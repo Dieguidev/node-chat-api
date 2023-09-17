@@ -35,8 +35,11 @@ class UserServices {
   }
 
   static async deleteUser(id) {
-    const result = await Users.destroy({ where: { id } });
-    return result;
+    const user = await this.getById(id);
+    if (user) {
+      const result = await Users.destroy({ where: { id } });
+      return result;
+    }
   }
 }
 

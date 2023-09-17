@@ -4,6 +4,7 @@ const {
   getAllUsers,
   getUserByEmail,
   updateUser,
+  deleteUser
 } = require('../controllers/user.controllers');
 const {
   getUserByIdDTO,
@@ -16,7 +17,7 @@ const { verifyTokenAndAdmin } = require('../middlewares/verifytoken');
 
 const router = Router();
 
-router.get('/',verifyTokenAndAdmin, getAllUsers);
+router.get('/', verifyTokenAndAdmin, getAllUsers);
 router.get(
   '/email',
   validatorHandler(getUserByEmailDTO, 'body'),
@@ -29,5 +30,6 @@ router.put(
   validatorHandler(getUserByIdDTO, 'params'),
   updateUser,
 );
+router.delete('/:id', validatorHandler(getUserByIdDTO, 'params'), deleteUser);
 
 module.exports = router;

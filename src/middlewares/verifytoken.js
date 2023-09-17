@@ -1,7 +1,6 @@
-
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-dotenv.config();
+const boom = require('@hapi/boom');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -17,24 +16,24 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-export const verifyTokenAndAuthorization = (req, res, next) => {
+const verifyTokenAndAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
     if (req.user.id === req.params.id || req.user.isAdmin) {
       next();
     } else {
-      res.status(403).json('You are not alowed to do that!');
+      next(boom.unauthorized())
     }
   });
 };
 
-export const verifyTokenAndAdmin = (req, res, next) => {
+const verifyTokenAndAdmin = (req, res, next) => {
   verifyToken(req, res, () => {
     if (req.user.isAdmin) {
       next();
     } else {
-      res.status(403).json('You are not alowed to do that!');
+      next(boom.unauthorized())
     }
   });
 };
 
-
+module.exports = {verifyTokenAndAuthorization, verifyTokenAndAdmin}

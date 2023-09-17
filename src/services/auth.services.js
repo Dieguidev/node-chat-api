@@ -5,33 +5,33 @@ require('dotenv').config();
 
 class AuthServices {
   static async register(user) {
-
       const result = await Users.create(user);
+      delete result.dataValues.password;
       return result;
-
   }
 
   static async login(credentials) {
+    const { email, password } = credentials;
+    const findUser = await Users.findOne({ email });
 
-      const { email, password } = credentials;
-      const user = await Users.findOne({ where: { email } });
+    if (!findUser) {
+      return { mesage: 'user not found' };
+    }
 
-      if (user) {
-        const isValid = bcrypt.compareSync(password, user.password);
-        return isValid ? { isValid, user } : { isValid };
-      }
-      return { isValid: false };
+    if (bcrypt.compareSync(password, findUser.password)) {
+      const token = jwt.sign(
+        {
+          id: findUser.id,
+          isAdmin: findUser.isAdmin,
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: '1h', algorithm: 'HS256' },
+      );
 
-  }
-
-  static genToken(data) {
-
-      const token = jwt.sign(data, process.env.JWT_SECRET, {
-        expiresIn: '10m',
-        algorithm: 'HS512',
-      });
       return token;
-
+    } else {
+      return { mesage: 'password is incorrect' };
+    }
   }
 }
 

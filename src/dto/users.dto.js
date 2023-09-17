@@ -14,11 +14,10 @@ const getUserByEmailDTO = Joi.object({
 })
 
 const getUserByIdDTO = Joi.object({
-  email: id.required(),
+  id: id.required(),
 })
 
 const updateUserDTO = Joi.object({
-  email,
   firstName,
   lastName,
   username,

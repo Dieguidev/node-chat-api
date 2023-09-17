@@ -32,6 +32,8 @@ const Users = db.define(
     },
     username: {
       type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
       validate:{
         len: [1,50],
       }
@@ -51,7 +53,6 @@ const Users = db.define(
     phone: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull:false,
     },
     profileImage: {
       field: 'profile_image',
@@ -60,9 +61,13 @@ const Users = db.define(
         isUrl: true,
       }
     },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      field: 'is_admin',
+      defaultValue: false,
+    },
     recoveryToken: {
       field: 'recovery_token',
-      allowNull: true,
       type: DataTypes.STRING
     },
     createdAt: {
@@ -72,15 +77,15 @@ const Users = db.define(
       defaultValue: Sequelize.NOW
     }
   },
-  // {
-  //   hooks: {
-  //     beforeCreate: (user) => {
-  //       const { password } = user;
-  //       const hash = bcrypt.hashSync(password, 10);
-  //       user.password = hash;
-  //     },
-  //   },
-  // },
+  {
+    hooks: {
+      beforeCreate: (user) => {
+        const { password } = user;
+        const hash = bcrypt.hashSync(password, 10);
+        user.password = hash;
+      },
+    },
+  },
 );
 
 module.exports = Users;

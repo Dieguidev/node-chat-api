@@ -1,3 +1,4 @@
+const boom = require('@hapi/boom');
 const AuthServices = require('../services/auth.services');
 
 // const transporter = require('../utils/mailer');
@@ -25,28 +26,16 @@ const register = async (req, res) => {
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    if (!email) {
-      return res.status(400).json({
-        error: 'Missing data',
-        message: 'Not email provided',
-      });
-    }
-    if (!password) {
-      return res.status(400).json({
-        error: 'Missing data',
-        message: 'Not password provided',
-      });
-    }
-    const result = await AuthServices.login({ email, password }); //credentials
+    const result = await AuthServices.login({ email, password });
 
     if (result.isValid) {
       const { username, id, email } = result.user;
-      const userData = { username, id, email };
+      const userData = { id, username, email };
       const token = AuthServices.genToken(userData);
-      result.user.token = token;
-      res.json(result.user);
+      userData.token = token;
+      res.json(userData);
     } else {
-      res.jsopn(400).json({ message: 'User not found' });
+      throw boom.notFound('email o password incorrect');
     }
   } catch (error) {
     next(error);

@@ -21,4 +21,9 @@ const registerDTO = Joi.object({
   profileImage,
 })
 
-module.exports = { registerDTO }
+const loginDTO = Joi.object({
+  email: email.required(),
+  password: password.required(),
+});
+
+module.exports = { registerDTO, loginDTO }

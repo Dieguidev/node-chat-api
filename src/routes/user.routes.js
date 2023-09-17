@@ -11,11 +11,12 @@ const {
   updateUserDTO,
 } = require('../dto/users.dto');
 const validatorHandler = require('../middlewares/validator.handler');
+const { verifyTokenAndAdmin } = require('../middlewares/verifytoken');
 
 
 const router = Router();
 
-router.get('/', getAllUsers);
+router.get('/',verifyTokenAndAdmin, getAllUsers);
 router.get(
   '/email',
   validatorHandler(getUserByEmailDTO, 'body'),

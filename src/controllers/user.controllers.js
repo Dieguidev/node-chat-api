@@ -42,4 +42,6 @@ const updateUser = async (req, res, next) => {
   }
 };
 
+
+
 module.exports = { getUserById, getAllUsers, getUserByEmail, updateUser };

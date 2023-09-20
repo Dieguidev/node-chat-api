@@ -1,7 +1,7 @@
 const ConversationTypes = require('./conversationType.model');
 const Conversations = require('./conversations.model');
 const Messages = require('./messages.model');
-const Participants = require('./participants. model');
+const Participants = require('./participants.model');
 const Users = require('./users.model');
 
 const initModels = () => {

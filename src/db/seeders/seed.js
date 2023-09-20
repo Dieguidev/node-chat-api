@@ -1,5 +1,5 @@
-const models = require('../model');
 const db = require('../../utils/database');
+const ConversationTypes = require('../model/conversationType.model');
 const Users = require('../model/users.model');
 
 const users = [
@@ -103,10 +103,16 @@ const users = [
     profileImage: 'https://example.com/jameslopez.jpg',
     isAdmin: true,
   },
-]
+];
 
-db.sync({ force: true })
-  .then(() => {
-    console.log('sembrando');
-    users.forEach(user => Users.create(user));
-  })
+const conversationsTypes = [{ type: 'single' }, { type: 'group' }];
+
+db.sync({ force: true }).then(() => {
+  console.log('sembrando');
+  users.forEach((user) => Users.create(user));
+  // setTimeout(() => {
+  //   conversationsTypes.forEach((conversationType) =>
+  //     ConversationTypes.create(conversationType),
+  //   );
+  // }, 300);
+});

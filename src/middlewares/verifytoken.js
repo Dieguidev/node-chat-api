@@ -9,7 +9,7 @@ const verifyToken = (req, res, next) => {
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
       if (err) res.status(403).json('Token is not valid!');
       req.user = user;
-      console.log(req.user );
+      console.log(req.user);
       next();
     });
   } else {
@@ -19,11 +19,10 @@ const verifyToken = (req, res, next) => {
 
 const verifyTokenAndAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
-    console.log(req.user.isAdmin);
     if (req.user.id === req.params.id || req.user.isAdmin) {
       next();
     } else {
-      next(boom.unauthorized())
+      next(boom.unauthorized());
     }
   });
 };
@@ -33,9 +32,9 @@ const verifyTokenAndAdmin = (req, res, next) => {
     if (req.user.isAdmin) {
       next();
     } else {
-      next(boom.unauthorized())
+      next(boom.unauthorized());
     }
   });
 };
 
-module.exports = {verifyTokenAndAuthorization, verifyTokenAndAdmin}
+module.exports = { verifyTokenAndAuthorization, verifyTokenAndAdmin };

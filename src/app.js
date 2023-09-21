@@ -25,7 +25,7 @@ db.authenticate()
 
 // db.sync({ force: true })
 //   .then(() => console.log('bd sincronnizada'))
-//   .catch(error => console.log(error));
+//   .catch((error) => console.log(error));
 
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to my server' });
